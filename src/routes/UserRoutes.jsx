@@ -14,34 +14,36 @@ import NotFound from "../pages/NotFound";
 
 function UserRoutes() {
   return (
-    <UserLayout>
-      <Routes>
-        <Route path="/" element={<Shop />} />
-        <Route
-          path="/mens"
-          element={<ShopCategory banner={mens_banner} category="men" />}
-        />
-        <Route
-          path="/womens"
-          element={<ShopCategory banner={women_banner} category="women" />}
-        />
-        <Route
-          path="/kids"
-          element={<ShopCategory banner={kids_banner} category="kid" />}
-        />
-        <Route
-          path="/other"
-          element={<ShopCategory banner={others_banner} category="other" />}
-        />
-        <Route path="/product" element={<Product />}>
-          <Route path=":productId" element={<Product />} />
-        </Route>
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/login" element={<LoginSignup />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </UserLayout>
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+      <UserLayout>
+        <Routes>
+          <Route path="/" element={<Shop />} />
+          <Route
+            path="/mens"
+            element={<ShopCategory banner={mens_banner} category="men" />}
+          />
+          <Route
+            path="/womens"
+            element={<ShopCategory banner={women_banner} category="women" />}
+          />
+          <Route
+            path="/kids"
+            element={<ShopCategory banner={kids_banner} category="kid" />}
+          />
+          <Route
+            path="/other"
+            element={<ShopCategory banner={others_banner} category="other" />}
+          />
+          <Route path="/product" element={<Product />}>
+            <Route path=":productId" element={<Product />} />
+          </Route>
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/login" element={<LoginSignup />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </UserLayout>
+    </div>
   );
 }
 

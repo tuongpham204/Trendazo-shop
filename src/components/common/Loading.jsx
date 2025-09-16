@@ -1,5 +1,3 @@
-import "./loading.css";
-
 const Loading = () => {
   return (
     <div className="ui-loader loader-blk">

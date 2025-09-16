@@ -12,13 +12,11 @@ export default function Payment({ status, paymentData }) {
   const [productsData, setProductsData] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
-  // ดึง query string จาก URL
   const queryParams = new URLSearchParams(location.search);
-  const id = queryParams.get("id"); // ดึงค่า id
-  const stripePromise = loadStripe(`${import.meta.env.VITE_STRIPE_PUBLIC_KEY}`); // แทนที่ด้วย Stripe Public Key ของคุณ
+  const id = queryParams.get("id"); //
+  const stripePromise = loadStripe(`${import.meta.env.VITE_STRIPE_PUBLIC_KEY}`);
 
   const getDataOrderID = async () => {
-    // Get Product data from orderID
     await axios(`${import.meta.env.VITE_APP_API}/api/payment/${id}`)
       .then((res) => setProductsData(res.data))
       .catch((err) => console.log(err));
@@ -147,7 +145,7 @@ export default function Payment({ status, paymentData }) {
       </main>
       <footer className="flex items-center justify-center h-14 border-t">
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          &copy; 2024 GOZA STORE. All rights reserved.
+          &copy; 2024 . All rights reserved.
         </p>
       </footer>
     </div>

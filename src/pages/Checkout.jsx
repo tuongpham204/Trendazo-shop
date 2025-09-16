@@ -58,16 +58,16 @@ export default function Checkout() {
   }, [cartItems, cartTotal]);
 
   return (
-    <div className="bg-gray-100 min-h-screen py-10 px-4 md:px-8 font-sans">
+    <div className="bg-gray-100 dark:bg-gray-800 min-h-screen py-10 px-4 md:px-8 font-sans transition-colors duration-300">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-3 gap-10">
-        <div className="lg:col-span-2 bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+        <div className="lg:col-span-2 bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold text-gray-800 tracking-wide">
+            <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 tracking-wide">
               Checkout
             </h1>
             <Link
               to={"/cart"}
-              className="text-sm text-indigo-600 hover:underline font-medium"
+              className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline font-medium"
             >
               ← Back to cart
             </Link>
@@ -76,54 +76,54 @@ export default function Checkout() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   First Name
                 </label>
                 <input
                   type="text"
                   {...register("firstname")}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 
-                             focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                             focus:border-indigo-500 text-gray-700 placeholder-gray-400"
+                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
+                             focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
+                             focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Last Name
                 </label>
                 <input
                   type="text"
                   {...register("lastname")}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 
-                             focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                             focus:border-indigo-500 text-gray-700 placeholder-gray-400"
+                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
+                             focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
+                             focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Address
               </label>
               <input
                 type="text"
                 {...register("address")}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 
-                           focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                           focus:border-indigo-500 text-gray-700 placeholder-gray-400"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
+                           focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
+                           focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Region
                 </label>
                 <select
                   {...register("region")}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 
-                             focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                             focus:border-indigo-500 text-gray-700 placeholder-gray-400"
+                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
+                             focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
+                             focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                 >
                   <option value="">Select Region</option>
                   <option value="Asia">Asia</option>
@@ -135,14 +135,14 @@ export default function Checkout() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Country
                 </label>
                 <select
                   {...register("country")}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 
-                             focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                             focus:border-indigo-500 text-gray-700 placeholder-gray-400"
+                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
+                             focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
+                             focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                 >
                   <option value="">Select Country</option>
                   <option value="Vietnam">Vietnam</option>
@@ -158,14 +158,14 @@ export default function Checkout() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   City
                 </label>
                 <select
                   {...register("city")}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 
-                             focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                             focus:border-indigo-500 text-gray-700 placeholder-gray-400"
+                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
+                             focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
+                             focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                 >
                   <option value="">Select City</option>
                   <option value="Hanoi">Hà Nội</option>
@@ -177,67 +177,73 @@ export default function Checkout() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Zip Code
                 </label>
                 <input
                   type="text"
                   {...register("zip")}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 
-                             focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                             focus:border-indigo-500 text-gray-700 placeholder-gray-400"
+                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
+                             focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
+                             focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Phone Number
               </label>
               <input
                 type="text"
                 {...register("phone")}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 
-                           focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                           focus:border-indigo-500 text-gray-700 placeholder-gray-400"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
+                           focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
+                           focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-4 bg-indigo-600 text-white rounded-lg font-semibold text-lg 
-                         hover:bg-indigo-700 transition duration-200 shadow-md"
+              className="w-full py-4 bg-indigo-600 dark:bg-indigo-700 text-white dark:text-gray-100 rounded-lg font-semibold text-lg 
+                         hover:bg-indigo-700 dark:hover:bg-indigo-600 transition duration-200 shadow-md"
             >
               Proceed to Payment
             </button>
           </form>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-          <h2 className="text-xl font-bold text-gray-800 mb-6">
+        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6">
             Order Summary
           </h2>
           <div className="space-y-4">
-            <div className="flex justify-between text-gray-600">
+            <div className="flex justify-between text-gray-600 dark:text-gray-400">
               <span>Total Items</span>
-              <span className="font-semibold">{totalAmount}</span>
+              <span className="font-semibold text-gray-800 dark:text-gray-100">
+                {totalAmount}
+              </span>
             </div>
-            <div className="flex justify-between text-gray-600">
+            <div className="flex justify-between text-gray-600 dark:text-gray-400">
               <span>Total Charges</span>
-              <span className="font-semibold">${cartTotal}</span>
+              <span className="font-semibold text-gray-800 dark:text-gray-100">
+                ${cartTotal}
+              </span>
             </div>
-            <div className="flex justify-between text-gray-600">
+            <div className="flex justify-between text-gray-600 dark:text-gray-400">
               <span>Tax (7%)</span>
-              <span className="font-semibold">
+              <span className="font-semibold text-gray-800 dark:text-gray-100">
                 ${(cartTotal * 0.07).toFixed(2)}
               </span>
             </div>
-            <div className="flex justify-between text-gray-800 text-lg font-semibold border-t pt-4">
+            <div className="flex justify-between text-gray-800 dark:text-gray-100 text-lg font-semibold border-t pt-4 border-gray-200 dark:border-gray-700">
               <span>Grand Total</span>
-              <span>${totalTax}</span>
+              <span className="text-gray-800 dark:text-gray-100">
+                ${totalTax}
+              </span>
             </div>
           </div>
-          <div className="mt-8 p-4 bg-indigo-50 rounded-lg text-sm text-gray-700 border border-indigo-200">
+          <div className="mt-8 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg text-sm text-gray-700 dark:text-gray-300 border border-indigo-200 dark:border-indigo-700">
             <p>
               ✅ Secure payment powered by{" "}
               <span className="font-semibold">Stripe</span>

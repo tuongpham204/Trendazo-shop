@@ -5,6 +5,7 @@ import PaymentRoutes from "./routes/PaymentRoutes";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { DarkModeProvider } from "./context/DarkModeContext"; // Đúng đường dẫn
 
 function App() {
   useEffect(() => {
@@ -14,14 +15,16 @@ function App() {
       once: true,
     });
   }, []);
-  return (
-    <Router>
-      <Routes>
-        <Route path="/*" element={<UserRoutes />} />
 
-        <Route path="/payment/*" element={<PaymentRoutes />} />
-      </Routes>
-    </Router>
+  return (
+    <DarkModeProvider>
+      <Router>
+        <Routes>
+          <Route path="/*" element={<UserRoutes />} />
+          <Route path="/payment/*" element={<PaymentRoutes />} />
+        </Routes>
+      </Router>
+    </DarkModeProvider>
   );
 }
 

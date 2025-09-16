@@ -3,7 +3,6 @@
 // import { useState } from "react";
 
 const Input = (props) => {
-  // const [showpassword, setShowpassword] = useState(false);
   const {
     name,
     type,

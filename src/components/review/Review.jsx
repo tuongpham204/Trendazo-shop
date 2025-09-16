@@ -87,14 +87,14 @@ const Review = () => {
   return (
     <div className="max-w-6xl mx-auto my-16 px-4">
       {/* Header Section */}
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full mb-3">
+      <div className="text-center mb-12 ">
+        <div className="inline-flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full mb-3 ">
           <TrendingUp className="w-4 h-4 text-gray-500" />
-          <span className="text-xs font-medium text-gray-600">
+          <span className="text-xs font-medium text-gray-600 ">
             Customer Feedback
           </span>
         </div>
-        <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-2">
+        <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-2 dark:text-gray-300">
           What Our Customers Say
         </h2>
         <p className="text-sm text-gray-500 max-w-xl mx-auto">

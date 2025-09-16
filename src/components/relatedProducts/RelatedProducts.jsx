@@ -4,7 +4,7 @@ import Item from "../item/Item";
 const RelatedProducts = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 flex flex-col items-center gap-4 mb-28">
-      <h1 className="text-xl md:text-xl lg:text-2xl font-semibold text-gray-900">
+      <h1 className="text-xl md:text-xl lg:text-2xl font-semibold text-gray-900 dark:text-gray-300">
         YOU MAY ALSO LIKE
       </h1>
       <hr className="w-[500px] h-[2px] rounded-lg bg-gray-800" />
