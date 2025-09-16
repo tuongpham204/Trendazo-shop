@@ -2,6 +2,12 @@
 import { Link } from "react-router-dom";
 
 const Item = ({ product }) => {
+  if (!product?.id) {
+    console.error("Invalid product ID:", product);
+    return (
+      <div className="text-red-500 dark:text-red-400 p-2">Invalid product</div>
+    );
+  }
   return (
     <Link
       to={`/product/${product.id}`}

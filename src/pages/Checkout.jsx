@@ -4,33 +4,58 @@ import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { loadStripe } from "@stripe/stripe-js";
+import { toast } from "react-toastify";
 import axios from "axios";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const checkoutSchema = z.object({
+  firstname: z.string().min(1, "First Name is required"),
+  lastname: z.string().min(1, "Last Name is required"),
+  address: z.string().min(1, "Address is required"),
+  region: z.string().min(1, "Region is required"),
+  country: z.string().min(1, "Country is required"),
+  city: z.string().min(1, "City is required"),
+  zip: z.string().regex(/^\d{5}$/, "Zip Code must be 5 digits"),
+  phone: z.string().regex(/^\+?\d{10,15}$/, "Invalid phone number"),
+});
 
 export default function Checkout() {
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(checkoutSchema),
+  });
   const { cartTotal, cartItems, combinedData } = useContext(ShopContext);
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalTax, setTotalTax] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const URL = import.meta.env.VITE_APP_API;
   const stripePromise = loadStripe(`${import.meta.env.VITE_STRIPE_PUBLIC_KEY}`);
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
     const formData = {
       address: [data],
       cart: [...combinedData],
       quantity: totalAmount,
       pricetotal: totalTax,
     };
-
-    await axios
-      .post(`${URL}/api/payment`, formData)
-      .then(async (res) => {
-        const stripe = await stripePromise;
-        await stripe.redirectToCheckout({
-          sessionId: res.data.id,
-        });
-      })
-      .catch((err) => console.log(err));
+    try {
+      const res = await axios.post(`${URL}/api/payment`, formData);
+      const stripe = await stripePromise;
+      await stripe.redirectToCheckout({ sessionId: res.data.id });
+    } catch (err) {
+      console.error(err);
+      toast.error("Payment initiation failed. Please try again.", {
+        theme: "colored",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleCalculate = () => {
@@ -49,7 +74,7 @@ export default function Checkout() {
         data += cartItems[key].total;
       }
     }
-    return setTotalAmount(data);
+    setTotalAmount(data);
   };
 
   useEffect(() => {
@@ -82,10 +107,15 @@ export default function Checkout() {
                 <input
                   type="text"
                   {...register("firstname")}
-                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
-                             focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
-                             focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                  className={`w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 ${
+                    errors.firstname ? "border-red-500 dark:border-red-400" : ""
+                  }`}
                 />
+                {errors.firstname && (
+                  <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                    {errors.firstname.message}
+                  </p>
+                )}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -94,10 +124,15 @@ export default function Checkout() {
                 <input
                   type="text"
                   {...register("lastname")}
-                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
-                             focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
-                             focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                  className={`w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 ${
+                    errors.lastname ? "border-red-500 dark:border-red-400" : ""
+                  }`}
                 />
+                {errors.lastname && (
+                  <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                    {errors.lastname.message}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -108,10 +143,15 @@ export default function Checkout() {
               <input
                 type="text"
                 {...register("address")}
-                className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
-                           focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
-                           focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                className={`w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 ${
+                  errors.address ? "border-red-500 dark:border-red-400" : ""
+                }`}
               />
+              {errors.address && (
+                <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                  {errors.address.message}
+                </p>
+              )}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -121,9 +161,9 @@ export default function Checkout() {
                 </label>
                 <select
                   {...register("region")}
-                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
-                             focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
-                             focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                  className={`w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 ${
+                    errors.region ? "border-red-500 dark:border-red-400" : ""
+                  }`}
                 >
                   <option value="">Select Region</option>
                   <option value="Asia">Asia</option>
@@ -133,6 +173,11 @@ export default function Checkout() {
                   <option value="Africa">Africa</option>
                   <option value="Oceania">Oceania</option>
                 </select>
+                {errors.region && (
+                  <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                    {errors.region.message}
+                  </p>
+                )}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -140,9 +185,9 @@ export default function Checkout() {
                 </label>
                 <select
                   {...register("country")}
-                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
-                             focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
-                             focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                  className={`w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 ${
+                    errors.country ? "border-red-500 dark:border-red-400" : ""
+                  }`}
                 >
                   <option value="">Select Country</option>
                   <option value="Vietnam">Vietnam</option>
@@ -153,6 +198,11 @@ export default function Checkout() {
                   <option value="Singapore">Singapore</option>
                   <option value="Thailand">Thailand</option>
                 </select>
+                {errors.country && (
+                  <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                    {errors.country.message}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -163,9 +213,9 @@ export default function Checkout() {
                 </label>
                 <select
                   {...register("city")}
-                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
-                             focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
-                             focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                  className={`w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 ${
+                    errors.city ? "border-red-500 dark:border-red-400" : ""
+                  }`}
                 >
                   <option value="">Select City</option>
                   <option value="Hanoi">Hà Nội</option>
@@ -175,6 +225,11 @@ export default function Checkout() {
                   <option value="Paris">Paris</option>
                   <option value="NewYork">New York</option>
                 </select>
+                {errors.city && (
+                  <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                    {errors.city.message}
+                  </p>
+                )}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -183,10 +238,15 @@ export default function Checkout() {
                 <input
                   type="text"
                   {...register("zip")}
-                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
-                             focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
-                             focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                  className={`w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 ${
+                    errors.zip ? "border-red-500 dark:border-red-400" : ""
+                  }`}
                 />
+                {errors.zip && (
+                  <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                    {errors.zip.message}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -197,18 +257,25 @@ export default function Checkout() {
               <input
                 type="text"
                 {...register("phone")}
-                className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800
-                           focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
-                           focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                className={`w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 text-gray-700 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 ${
+                  errors.phone ? "border-red-500 dark:border-red-400" : ""
+                }`}
               />
+              {errors.phone && (
+                <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                  {errors.phone.message}
+                </p>
+              )}
             </div>
 
             <button
               type="submit"
-              className="w-full py-4 bg-indigo-600 dark:bg-indigo-700 text-white dark:text-gray-100 rounded-lg font-semibold text-lg 
-                         hover:bg-indigo-700 dark:hover:bg-indigo-600 transition duration-200 shadow-md"
+              disabled={isLoading}
+              className={`w-full py-4 bg-indigo-600 dark:bg-indigo-700 text-white dark:text-gray-100 rounded-lg font-semibold text-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition duration-200 shadow-md ${
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
-              Proceed to Payment
+              {isLoading ? "Processing..." : "Proceed to Payment"}
             </button>
           </form>
         </div>

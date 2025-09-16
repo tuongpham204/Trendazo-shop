@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import ProductDisplay from "../components/productDisplay/ProductDisplay";
@@ -10,6 +10,12 @@ import NotFound from "../pages/NotFound";
 const Product = () => {
   const { all_product } = useContext(ShopContext);
   const { productId } = useParams();
+
+  // Scroll to top khi component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [productId]); // Chạy lại khi productId thay đổi
+
   if (!all_product) {
     return (
       <div className="flex justify-center items-center min-h-screen">

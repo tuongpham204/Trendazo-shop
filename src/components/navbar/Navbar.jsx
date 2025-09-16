@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
-import cart_icon from "../assets/cart_icon.png";
 import nav_dropdown from "../assets/nav_dropdown.png";
 import { Link, useNavigate } from "react-router-dom";
 import { ShopContext } from "../../context/ShopContext";
@@ -8,7 +7,9 @@ import { useAuth } from "../../context/AuthProvider";
 import { useDarkMode } from "../../context/DarkModeContext";
 import jwtDecode from "jwt-decode";
 import { FiMoon, FiSun } from "react-icons/fi";
-import { motion } from "framer-motion"; // Thêm Framer Motion cho hiệu ứng button
+import { motion } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const [menu, setMenu] = useState("shop");
@@ -131,7 +132,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <div className="nav-login-cart flex items-center gap-4 md:gap-6">
+        <div className=" flex items-center gap-4 md:gap-6">
           <div className="hidden md:block">{btncheckRole()}</div>
 
           <button
@@ -149,9 +150,9 @@ const Navbar = () => {
             to="/cart"
             className="relative p-2"
           >
-            <img
+            <FontAwesomeIcon
+              icon={faCartShopping}
               className="w-6 h-6 md:w-7 md:h-7 dark:filter dark:brightness-150"
-              src={cart_icon}
               alt="Cart"
             />
             {getTotalCartItems() > 0 && (
@@ -205,23 +206,6 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
-
-            <li>
-              <Link
-                to="/cart"
-                onClick={closeMobileMenu}
-                className="flex items-center gap-2 text-gray-800 dark:text-gray-100"
-              >
-                <img
-                  className="w-5 h-5 dark:filter dark:brightness-150"
-                  src={cart_icon}
-                  alt="Cart"
-                />
-                <span className="text-sm font-medium">
-                  Cart ({getTotalCartItems()})
-                </span>
-              </Link>
-            </li>
 
             <li>{btncheckRole()}</li>
           </ul>
