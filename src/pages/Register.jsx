@@ -1,36 +1,25 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import jwtDecode from "jwt-decode";
-import axios from "axios";
 import Input from "../components/common/Input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FiUser, FiMail, FiLock } from "react-icons/fi";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
-// 📝 Schema
-const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(7, "Password must contain at least 7 characters"),
-});
-
-const signupSchema = loginSchema.extend({
+const signupSchema = z.object({
   username: z
     .string()
     .min(3, "Username must contain at least 3 characters")
     .max(20, "Username must be no more than 20 characters")
     .regex(/^[a-zA-Z0-9]+$/, { message: "No special characters allowed" }),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(7, "Password must contain at least 7 characters"),
 });
 
-const LoginSignup = () => {
-  const [state, setState] = useState("Login");
-  const { login } = useAuth();
+const Register = () => {
   const navigate = useNavigate();
-  const URL = import.meta.env.VITE_APP_API;
 
   const {
     register,
@@ -38,40 +27,34 @@ const LoginSignup = () => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(state === "Sign Up" ? signupSchema : loginSchema),
+    resolver: zodResolver(signupSchema),
   });
 
-  // ✅ Xử lý chung sau khi login/signup thành công
-  const handleAuthSuccess = (token) => {
-    localStorage.setItem("auth-token", token);
-    reset();
-    login();
-    const decoded = jwtDecode(token);
-    navigate(decoded.user.role === "admin" ? "/admin" : "/");
-  };
-
-  // ✅ Submit Login / Signup
   const onSubmit = async (data) => {
     toast.loading("Please wait...");
     try {
-      const endpoint = state === "Sign Up" ? "/api/users" : "/api/users/login";
-      const res = await axios.post(`${URL}${endpoint}`, data);
-
-      if (res.data.success) {
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const existingUser = users.find((user) => user.email === data.email);
+      if (existingUser) {
         toast.dismiss();
-        toast.success(`${state} successful!`, { theme: "colored" });
-        handleAuthSuccess(res.data.token);
-      } else {
-        toast.dismiss();
-        toast.error(res.data.errors || "Something went wrong", {
-          theme: "colored",
-        });
+        toast.error("Email already in use", { theme: "colored" });
+        return;
       }
+
+      const newUser = {
+        ...data,
+        role: data.email.endsWith("@admin.com") ? "admin" : "user",
+      };
+      users.push(newUser);
+      localStorage.setItem("users", JSON.stringify(users));
+
+      toast.dismiss();
+      toast.success("Sign up successful! Please log in.", { theme: "colored" });
+      reset();
+      navigate("/login");
     } catch (err) {
       toast.dismiss();
-      toast.error(err.response?.data?.errors || "Server error", {
-        theme: "colored",
-      });
+      toast.error("An error occurred", { theme: "colored" });
     }
   };
 
@@ -88,7 +71,6 @@ const LoginSignup = () => {
         className="w-full max-w-md"
       >
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-200 dark:border-gray-700">
-          {/* Header */}
           <div className="text-center mb-8">
             <div
               className="mx-auto w-16 h-16 bg-gradient-to-r from-indigo-500 to-blue-500 
@@ -97,39 +79,24 @@ const LoginSignup = () => {
               <FiUser className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-              {state === "Login" ? "Welcome Back" : "Create Account"}
+              Create Account
             </h1>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              {state === "Login"
-                ? "Enter your credentials to access your account"
-                : "Sign up to get started with your new account"}
+              Sign up to get started with your new account
             </p>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <AnimatePresence mode="wait">
-              {state === "Sign Up" && (
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Input
-                    name="username"
-                    type="text"
-                    placeholder="Your Username"
-                    icon={
-                      <FiUser className="w-4 h-4 text-gray-400 dark:text-gray-500" />
-                    }
-                    register={register}
-                    error={errors?.username?.message}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-
+            <Input
+              name="username"
+              type="text"
+              placeholder="Your Username"
+              icon={
+                <FiUser className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+              }
+              register={register}
+              error={errors?.username?.message}
+            />
             <Input
               name="email"
               type="email"
@@ -140,7 +107,6 @@ const LoginSignup = () => {
               register={register}
               error={errors?.email?.message}
             />
-
             <Input
               name="password"
               type="password"
@@ -151,8 +117,6 @@ const LoginSignup = () => {
               register={register}
               error={errors?.password?.message}
             />
-
-            {/* Submit Button */}
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -167,33 +131,18 @@ const LoginSignup = () => {
                 dark:focus:ring-offset-gray-800 text-lg font-semibold 
                 transition-all duration-300 shadow-lg"
             >
-              {state === "Login" ? "Sign In" : "Sign Up"}
+              Sign Up
             </motion.button>
           </form>
 
-          {/* Toggle Link */}
           <div className="text-center mt-6 text-sm text-gray-600 dark:text-gray-400">
-            {state === "Sign Up" ? (
-              <>
-                Already have an account?{" "}
-                <span
-                  onClick={() => setState("Login")}
-                  className="text-indigo-500 dark:text-indigo-400 font-semibold cursor-pointer hover:underline"
-                >
-                  Login here
-                </span>
-              </>
-            ) : (
-              <>
-                Don’t have an account?{" "}
-                <span
-                  onClick={() => setState("Sign Up")}
-                  className="text-indigo-500 dark:text-indigo-400 font-semibold cursor-pointer hover:underline"
-                >
-                  Sign up here
-                </span>
-              </>
-            )}
+            Already have an account?{" "}
+            <span
+              onClick={() => navigate("/login")}
+              className="text-indigo-500 dark:text-indigo-400 font-semibold cursor-pointer hover:underline"
+            >
+              Login here
+            </span>
           </div>
         </div>
       </motion.div>
@@ -201,4 +150,4 @@ const LoginSignup = () => {
   );
 };
 
-export default LoginSignup;
+export default Register;
