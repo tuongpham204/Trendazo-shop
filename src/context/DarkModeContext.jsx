@@ -1,13 +1,12 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import PropTypes from "prop-types"; // Thêm import này
+import PropTypes from "prop-types";
 
 const DarkModeContext = createContext();
 
 const DarkModeProvider = ({ children }) => {
-  const [dark, setDark] = useState(false); // Default light mode
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    // Toggle class 'dark' trên <html> để Tailwind áp dụng
     if (dark) {
       document.documentElement.classList.add("dark");
     } else {
@@ -15,15 +14,12 @@ const DarkModeProvider = ({ children }) => {
     }
   }, [dark]);
 
-  // Load từ localStorage nếu muốn persist (optional, nhưng khuyến nghị)
   useEffect(() => {
     const savedDark = localStorage.getItem("darkMode");
     if (savedDark !== null) {
       setDark(JSON.parse(savedDark));
     }
   }, []);
-
-  // Lưu vào localStorage khi dark thay đổi
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(dark));
   }, [dark]);
@@ -35,12 +31,11 @@ const DarkModeProvider = ({ children }) => {
   );
 };
 
-// Thêm propTypes cho DarkModeProvider (fix lỗi ESLint)
 DarkModeProvider.propTypes = {
-  children: PropTypes.node.isRequired, // 'node' phù hợp cho children (có thể là element, string, number, v.v.)
+  children: PropTypes.node.isRequired,
 };
 
-export { DarkModeProvider }; // Export named export
+export { DarkModeProvider };
 export const useDarkMode = () => {
   const context = useContext(DarkModeContext);
   if (!context) {

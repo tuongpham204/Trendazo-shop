@@ -86,7 +86,6 @@ const Review = () => {
 
   return (
     <div className="max-w-6xl mx-auto my-16 px-4">
-      {/* Header Section */}
       <div className="text-center mb-12 ">
         <div className="inline-flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full mb-3 ">
           <TrendingUp className="w-4 h-4 text-gray-500" />
@@ -102,7 +101,6 @@ const Review = () => {
         </p>
       </div>
 
-      {/* Stats Overview */}
       <div className="grid md:grid-cols-2 gap-8 mb-12 bg-gray-50 p-6 rounded-2xl border border-gray-100">
         <div className="text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-4 mb-4">
@@ -139,8 +137,6 @@ const Review = () => {
           ))}
         </div>
       </div>
-
-      {/* Filters */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6 p-3 bg-white rounded-xl border border-gray-100">
         <div className="flex items-center gap-2 flex-wrap">
           <Filter className="w-4 h-4 text-gray-500" />
@@ -169,7 +165,6 @@ const Review = () => {
         </select>
       </div>
 
-      {/* Reviews Grid */}
       <div className="space-y-4">
         {reviews.map((review) => (
           <div
@@ -258,8 +253,6 @@ const Review = () => {
           </div>
         ))}
       </div>
-
-      {/* Load More */}
       <div className="text-center mt-8">
         <button className="px-6 py-2 bg-gray-200 text-gray-700 font-medium rounded-full text-sm">
           Load More Reviews

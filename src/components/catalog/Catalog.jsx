@@ -1,9 +1,6 @@
-import React from "react";
-
 const Catalog = () => {
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-2xl shadow-lg p-6 space-y-8 max-w-sm mx-auto transition-all duration-300">
-      {/* Category Filter */}
       <div>
         <h2 className="text-xl font-medium text-gray-800 dark:text-gray-100 mb-4 border-b border-gray-200 dark:border-gray-700 pb-3 tracking-wide">
           Categories
@@ -19,7 +16,6 @@ const Catalog = () => {
         </ul>
       </div>
 
-      {/* Price Filter */}
       <div>
         <h2 className="text-xl font-medium text-gray-800 dark:text-gray-100 mb-4 border-b border-gray-200 dark:border-gray-700 pb-3 tracking-wide">
           Price
@@ -36,8 +32,6 @@ const Catalog = () => {
           )}
         </ul>
       </div>
-
-      {/* Color Filter */}
       <div>
         <h2 className="text-xl font-medium text-gray-800 dark:text-gray-100 mb-4 border-b border-gray-200 dark:border-gray-700 pb-3 tracking-wide">
           Color
@@ -57,8 +51,6 @@ const Catalog = () => {
           )}
         </div>
       </div>
-
-      {/* Size Filter */}
       <div>
         <h2 className="text-xl font-medium text-gray-800 dark:text-gray-100 mb-4 border-b border-gray-200 dark:border-gray-700 pb-3 tracking-wide">
           Size

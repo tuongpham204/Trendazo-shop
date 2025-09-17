@@ -4,7 +4,8 @@ import Shop from "../pages/Shop";
 import ShopCategory from "../pages/ShopCategory";
 import Product from "../pages/Product";
 import Cart from "../pages/Cart";
-import LoginSignup from "../pages/LoginSingup";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 import mens_banner from "../components/assets/banner_mens.png";
 import women_banner from "../components/assets/banner_womens.png";
 import kids_banner from "../components/assets/banner_kids.png";
@@ -39,7 +40,8 @@ function UserRoutes() {
           </Route>
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/login" element={<LoginSignup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </UserLayout>

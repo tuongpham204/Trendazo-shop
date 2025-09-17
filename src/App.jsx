@@ -5,7 +5,7 @@ import PaymentRoutes from "./routes/PaymentRoutes";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { DarkModeProvider } from "./context/DarkModeContext"; // Đúng đường dẫn
+import { DarkModeProvider } from "./context/DarkModeContext";
 
 function App() {
   useEffect(() => {

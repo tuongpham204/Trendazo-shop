@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
 import nav_dropdown from "../assets/nav_dropdown.png";
 import { Link, useNavigate } from "react-router-dom";
 import { ShopContext } from "../../context/ShopContext";
 import { useAuth } from "../../context/AuthProvider";
 import { useDarkMode } from "../../context/DarkModeContext";
-import jwtDecode from "jwt-decode";
 import { FiMoon, FiSun } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,54 +13,36 @@ const Navbar = () => {
   const [menu, setMenu] = useState("shop");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { dark, setDark } = useDarkMode();
-  const token = localStorage.getItem("auth-token");
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const { getTotalCartItems } = useContext(ShopContext);
 
   const drop_toggle = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
-  const btncheckRole = () => {
-    if (token) {
-      const decoded = jwtDecode(token);
-      const userRole = decoded.user?.role;
-      if (userRole === "admin") {
-        return (
+  const renderAuthButton = () => {
+    if (user) {
+      return (
+        <div className="flex items-center gap-3">
+          <span className="font-medium text-gray-800 dark:text-gray-100">
+            {user.username || user.name || user.email || "User"}
+          </span>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
-              setMenu(null);
+              logout();
+              navigate("/");
               closeMobileMenu();
-              navigate("/login");
             }}
-            className="font-medium px-4 py-2 rounded-lg 
-             bg-gray-800 text-white 
-             hover:bg-gray-700 
-             dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-gray-300
-             transition-all duration-300 shadow"
+            className="px-4 py-2 rounded-full font-semibold bg-gradient-to-r from-red-500 to-red-600 text-white shadow-md hover:opacity-90 transition duration-300"
           >
-            Login
+            Logout
           </motion.button>
-        );
-      }
-      return (
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => {
-            localStorage.removeItem("auth-token");
-            logout();
-            navigate("/");
-            closeMobileMenu();
-          }}
-          className="font-medium px-4 py-2 rounded-lg bg-gray-800 dark:bg-gray-700 text-white dark:text-gray-100 hover:bg-gray-900 dark:hover:bg-gray-600 transition-all duration-300 shadow"
-        >
-          Logout
-        </motion.button>
+        </div>
       );
     }
+
     return (
       <motion.button
         whileHover={{ scale: 1.05 }}
@@ -72,11 +52,7 @@ const Navbar = () => {
           closeMobileMenu();
           navigate("/login");
         }}
-        className="font-medium px-4 py-2 rounded-lg 
-             bg-gray-800 text-white 
-             hover:bg-gray-700 
-             dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-gray-300
-             transition-all duration-300 shadow"
+        className="px-4 py-2 rounded-full font-semibold bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md hover:opacity-90 transition duration-300"
       >
         Login
       </motion.button>
@@ -84,7 +60,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar flex flex-col sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
+    <div className="navbar flex flex-col sticky top-0 z-50 bg-white dark:bg-gray-900  dark:border-b border-gray-500 ">
       <div className="flex justify-between items-center py-3 px-4 md:px-8 lg:px-12">
         <Link
           className="flex items-center"
@@ -132,9 +108,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <div className=" flex items-center gap-4 md:gap-6">
-          <div className="hidden md:block">{btncheckRole()}</div>
-
+        <div className="flex items-center gap-4 md:gap-6">
           <button
             onClick={() => setDark(!dark)}
             className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
@@ -161,6 +135,8 @@ const Navbar = () => {
               </div>
             )}
           </Link>
+
+          <div className="hidden md:block">{renderAuthButton()}</div>
 
           <button
             className="md:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
@@ -207,7 +183,7 @@ const Navbar = () => {
               </li>
             ))}
 
-            <li>{btncheckRole()}</li>
+            <li>{renderAuthButton()}</li>
           </ul>
         </div>
       )}
