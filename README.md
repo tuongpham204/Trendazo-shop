@@ -1,9 +1,31 @@
-# React + Vite
+# Trendazo Shop (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a frontend project that simulates an **e-commerce clothing shop**.  
+The goal of this project is to practice building responsive layouts, reusable components, and implementing essential e-commerce features.
 
-Currently, two official plugins are available:
+## Features
+- Homepage with promotional banners  
+- Product catalog with images and details  
+- Shopping cart (add/remove items – in progress)  
+- Responsive design for desktop and mobile  
+- Fast development with Vite and hot reload  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# Trendazo-shop
+## Tech Stack
+- React.js (Vite)  
+- Tailwind CSS  
+- React Hooks (Context API planned)  
+- ESLint + PostCSS  
+- Deployed with Vercel  
+
+## Demo
+- **Live Demo:** [https://trendazo-shop.vercel.app/](https://trendazo-shop.vercel.app/)  
+- **GitHub Repository:** [https://github.com/tuongpham204/Trendazo-shop](https://github.com/tuongpham204/Trendazo-shop)
+
+## Installation
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/tuongpham204/Trendazo-shop.git
+cd Trendazo-shop
+npm install
+npm run dev
