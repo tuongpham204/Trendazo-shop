@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 
+=======
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+>>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
 const FilterBox = ({ filters, updateFilters }) => {
   const onFilter = (event) => {
     const {

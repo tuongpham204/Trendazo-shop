@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+/* eslint-disable no-unused-vars */
+>>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
 import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";

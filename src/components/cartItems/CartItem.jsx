@@ -21,7 +21,13 @@ const CartItem = () => {
   return (
     <div className="container mx-auto my-8 px-4 sm:px-6 font-sans bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300">
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
+<<<<<<< HEAD
         <div className="flex-1 overflow-x-auto">
+=======
+        {/* Bảng sản phẩm */}
+        <div className="flex-1 overflow-x-auto">
+          {/* Header chỉ hiển thị trên tablet trở lên */}
+>>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
           <div className="hidden sm:grid sm:grid-cols-7 gap-4 py-4 text-gray-800 dark:text-gray-100 text-sm font-semibold border-b border-gray-200 dark:border-gray-700 text-center">
             <p>Product</p>
             <p>Title</p>
@@ -31,11 +37,20 @@ const CartItem = () => {
             <p>Total</p>
             <p>Action</p>
           </div>
+<<<<<<< HEAD
+=======
+
+          {/* Danh sách sản phẩm */}
+>>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
           {all_product.map((e) => {
             if (cartItems[e.id].total > 0) {
               return (
                 <div key={e.id}>
                   <div className="flex flex-col sm:grid sm:grid-cols-7 gap-4 items-center py-4 text-gray-700 dark:text-gray-300 text-sm border-b border-gray-200 dark:border-gray-700">
+<<<<<<< HEAD
+=======
+                    {/* Hình ảnh */}
+>>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
                     <div className="flex items-center justify-center sm:justify-center w-full sm:w-auto">
                       <img
                         className="rounded object-cover object-top w-20 h-20 sm:w-16 sm:h-16 shadow-sm"
@@ -43,12 +58,27 @@ const CartItem = () => {
                         alt={e.name}
                       />
                     </div>
+<<<<<<< HEAD
                     <p className="font-medium truncate text-center sm:text-center mt-2 sm:mt-0">
                       {e.name}
                     </p>
                     <p className="text-green-600 dark:text-green-400 font-semibold text-center sm:text-center">
                       ${e.new_price.toFixed(2)}
                     </p>
+=======
+
+                    {/* Tên sản phẩm */}
+                    <p className="font-medium truncate text-center sm:text-center mt-2 sm:mt-0">
+                      {e.name}
+                    </p>
+
+                    {/* Giá */}
+                    <p className="text-green-600 dark:text-green-400 font-semibold text-center sm:text-center">
+                      ${e.new_price.toFixed(2)}
+                    </p>
+
+                    {/* Số lượng */}
+>>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
                     <div className="flex items-center gap-2 justify-center mt-2 sm:mt-0">
                       <button
                         className="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-md text-lg font-bold hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -66,6 +96,11 @@ const CartItem = () => {
                         -
                       </button>
                     </div>
+<<<<<<< HEAD
+=======
+
+                    {/* Kích thước */}
+>>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
                     <select
                       className={`rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 w-20 sm:w-auto mx-auto sm:mx-0 mt-2 sm:mt-0 ${
                         cartItems[e.id].size === "none"
@@ -84,9 +119,19 @@ const CartItem = () => {
                         <option value="none">-</option>
                       )}
                     </select>
+<<<<<<< HEAD
                     <p className="font-semibold text-green-600 dark:text-green-400 text-center sm:text-center mt-2 sm:mt-0">
                       ${(e.new_price * cartItems[e.id].total).toFixed(2)}
                     </p>
+=======
+
+                    {/* Tổng giá */}
+                    <p className="font-semibold text-green-600 dark:text-green-400 text-center sm:text-center mt-2 sm:mt-0">
+                      ${(e.new_price * cartItems[e.id].total).toFixed(2)}
+                    </p>
+
+                    {/* Xóa */}
+>>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
                     <button
                       onClick={() => removeFromCart(e.id, true)}
                       className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium text-sm mt-2 sm:mt-0 mx-auto sm:mx-0"
@@ -100,6 +145,11 @@ const CartItem = () => {
             return null;
           })}
         </div>
+<<<<<<< HEAD
+=======
+
+        {/* Order Summary */}
+>>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
         <div className="w-full lg:w-1/3 h-fit p-4 sm:p-6 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md bg-white dark:bg-gray-900">
           <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-gray-100">
             Order Summary

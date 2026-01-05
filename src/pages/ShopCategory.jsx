@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 
+=======
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+>>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
 import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Item from "../components/item/Item";
@@ -49,6 +55,10 @@ const ShopCategory = (props) => {
           <Catalog />
         </div>
         <div className="w-full lg:w-3/4 flex flex-col gap-6">
+<<<<<<< HEAD
+=======
+          {/* Showing + Sort */}
+>>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
           <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
             <p className="text-gray-700 dark:text-gray-300 text-sm md:text-base">
               <span className="font-medium">Showing 1-{showing}</span> out of{" "}
@@ -94,6 +104,11 @@ const ShopCategory = (props) => {
               </MenuItems>
             </Menu>
           </div>
+<<<<<<< HEAD
+=======
+
+          {/* Grid Products */}
+>>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
           <motion.div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
             <AnimatePresence>
               {all_product

@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
+>>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { timehelper } from "../../helpers/timehelper";
