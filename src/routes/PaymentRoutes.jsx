@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-
-=======
 /* eslint-disable react-hooks/exhaustive-deps */
->>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
 import PaymentLayout from "../layout/PaymentLayout";
 import { Routes, Route } from "react-router-dom";
 import Payment from "../components/payment/Payment";

@@ -11,16 +11,9 @@ const Product = () => {
   const { all_product } = useContext(ShopContext);
   const { productId } = useParams();
 
-<<<<<<< HEAD
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [productId]); 
-=======
-  // Scroll to top khi component mount
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [productId]); // Chạy lại khi productId thay đổi
->>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
 
   if (!all_product) {
     return (

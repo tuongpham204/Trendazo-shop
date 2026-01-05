@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-=======
 /* eslint-disable react/prop-types */
 
 // import { useState } from "react";
->>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
 
 const Input = (props) => {
   const {

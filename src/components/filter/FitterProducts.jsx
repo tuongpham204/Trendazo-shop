@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 /* eslint-disable no-unused-vars */
->>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
 import { useState } from "react";
 import Filter from "./Filter";
 

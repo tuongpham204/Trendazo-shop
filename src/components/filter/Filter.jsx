@@ -1,9 +1,6 @@
 import { useEffect } from "react";
 import SearchBar from "../searchbar/SearchBar";
-<<<<<<< HEAD
-=======
 /* eslint-disable react/prop-types */
->>>>>>> 7d547c3fb925bf43a14909c4a62d0a20a8bec4d9
 const Filter = ({ popular, setFiltered, activeGenre, setActiveGenre }) => {
   const categories = [
     { id: "all", label: "All" },
